@@ -7,7 +7,7 @@ def main():
     SmartIPRange()
 
 def Help():
-    if len(sys.argv) == 1:
+    if len(sys.argv) == 1 or sys.argv[1].lower() == "-h":
         print("""
                                                     BOOM SHOCKA LOCKA
 
@@ -19,6 +19,8 @@ def Help():
         
         """)
         sys.exit(1)
+
+
 
 def Subnets():
     print("""
@@ -77,8 +79,17 @@ def SmartIPRange():
         print("IP Address = {}".format(IPAddress))
         print("SubnetMask = 255.255.255.{}".format(str(SubnetMaskEnd)))
         print("Network IP = {}{}".format(Prefix, str(LowerNumber)))
-        print("Broadcast IP = {}{}".format(Prefix, str(UpperNumber)))
+        print("Broadcast IP = {}{}".format(Prefix, str(UpperNumber-1)))
         print("Usable IPs = {}".format(SubnetRange - 2))
+        print("\n")
+        ShowIPs = input("Want to see the Usable IPs in the network range? [y/n]: ")
+        print("\n")
+        if ShowIPs[0].lower() == 'y':
+            i = LowerNumber
+            while i < UpperNumber-2:
+                i += 1
+                print(Prefix + str(i))
+
 
 
     elif IntSubnetMask < 24 and IntSubnetMask > 15:
