@@ -48,14 +48,14 @@ def Addition():
     DisplayMenu = """
     \n\n\n\n\n\n\n\n\n\n\n\n
     Addition Flash Math
-    
-        
+
+
     Choose Your Game:
-    
+
         1. Quick Addition - 10 max
         2. Quick Addition - 100 max
-        3. Focused Addition   
-    
+        3. Focused Addition
+
     """
     print(DisplayMenu)
 
@@ -84,7 +84,7 @@ def Division():
     DisplayMenu = """
 
     Division Flash Math
- 
+
 
     """
 
@@ -93,12 +93,36 @@ def Division():
 
 def Multiplication():
     DisplayMenu = """
-
+    \n\n\n\n\n\n\n\n\n\n\n\n
     Multiplication Flash Math
 
-    """
 
+    Choose Your Game:
+
+        1. Quick Multiplication - 12 max
+        2. Challenge Multiplication - 100 max
+        3. Focused Multiplication - customize numbers
+
+    """
     print(DisplayMenu)
+
+    UserResponse = input(" > ")
+    if UserResponse.lower() == "q":
+        Quit()
+    elif UserResponse == "1":
+        MultiplicationFlash(12, 12)
+    elif UserResponse == "2":
+        MultiplicationFlash(100, 100)
+    elif UserResponse == "3":
+        try:
+            XVal = int(input("Enter Static Number: "))
+            YVal = int(input("Enter Maximum Range: "))
+        except:
+            print("Error: You must enter a number!")
+            Quit()
+        MultiplicationFocused(XVal, YVal)
+    else:
+        Addition()
 
 
 def Subtraction():
@@ -124,7 +148,6 @@ def AdditionFlash(XVal, YVal):
     if UserResponse == "q":
         Quit()
     else:
-
         AdditionFlash(XVal, YVal)
 
 
@@ -141,8 +164,37 @@ def AdditionFocused(XVal, YVal):
     if UserResponse == "q":
         Quit()
     else:
-
         AdditionFocused(XVal, YVal)
+
+
+def MultiplicationFlash(XVal, YVal):
+    x = random.randint(0, XVal)
+    y = random.randint(0, YVal)
+    UserResponse = input("\n\n\n\n\n\n\n\n\n\n\n\n{} * {} = ? ".format(x, y))
+    if UserResponse == "q":
+        Quit()
+    else:
+        print("Answer = {}".format(x*y))
+    UserResponse = input("")
+    if UserResponse == "q":
+        Quit()
+    else:
+        MultiplicationFlash(XVal, YVal)
+
+
+def MultiplicationFocused(XVal, YVal):
+    x = XVal
+    y = random.randint(0, YVal)
+    UserResponse = input("\n\n\n\n\n\n\n\n\n\n\n\n{} * {} = ? ".format(x, y))
+    if UserResponse == "q":
+        Quit()
+    else:
+        print("Answer = {}".format(x*y))
+    UserResponse = input("")
+    if UserResponse == "q":
+        Quit()
+    else:
+        MultiplicationFocused(XVal, YVal)
 
 
 def Quit():
@@ -153,7 +205,7 @@ def Quit():
 
 
 
-if __name__ == "__main__":
+if __name__ == main():
     print("starting flash math")
     main()
     print("flash math over")
