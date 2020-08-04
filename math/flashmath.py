@@ -74,6 +74,7 @@ def Addition():
             YVal = int(input("Enter Maximum Range: "))
         except:
             print("Error: You must enter a number!")
+            UserResponse = input("")
             Addition()
         AdditionFocused(XVal, YVal)
     else:
@@ -84,15 +85,41 @@ def Addition():
 
 
 def Division():
-    DisplayMenu = """
+    ### check for fraction: ex: 30%4
+    ### check if value is less than 1: ex: 30/60 >=1
 
+    DisplayMenu = """
+    \n\n\n\n\n\n\n\n\n\n\n\n
     Division Flash Math
 
 
-    """
+    Choose Your Game:
 
+        1. Quick Division - 30 max
+        2. Quick Division - 100 max
+        3. Focused Division
+
+    """
     print(DisplayMenu)
-    Menu()
+
+    UserResponse = input(" > ")
+    if UserResponse.lower() == "q":
+        Menu()
+    elif UserResponse == "1":
+        DivisionFlash(30, 30)
+    elif UserResponse == "2":
+        DivisionFlash(100, 100)
+    elif UserResponse == "3":
+        try:
+            XVal = int(input("Enter Static Number: "))
+            YVal = int(input("Enter Maximum Range: "))
+        except:
+            print("Error: You must enter a number")
+            UserResponse = input("")
+            Division()
+        DivisionFocused(XVal, YVal)
+    else:
+        Division()
     return 0
 
 
@@ -124,10 +151,11 @@ def Multiplication():
             YVal = int(input("Enter Maximum Range: "))
         except:
             print("Error: You must enter a number!")
+            UserResponse = input("")
             Multiplication()
         MultiplicationFocused(XVal, YVal)
     else:
-        Addition()
+        Multiplication()
     return 0
 
 
@@ -140,7 +168,7 @@ def Subtraction():
 
         1. Quick Subtraction - 12 max
         2. Challenge Subtraction - 100 max
-        #3. Focused Subtraction - customize numbers
+        3. Focused Subtraction - customize numbers
 
     """
 
@@ -158,10 +186,13 @@ def Subtraction():
             XVal = int(input("Enter Static Number: "))
             YVal = int(input("Enter Maximum Range: "))
         except:
-            print("Error: You must enter a number!")
-            Menu()
+            print("Error: You must enter a number")
+            UserResponse = input("")
+            Subtraction()
         SubtractionFocused(XVal, YVal)
     else:
+        print("Error: You must enter a number")
+        UserResponse = input("")
         Subtraction()
     return 0
 
@@ -170,11 +201,15 @@ def Subtraction():
 def AdditionFlash(XVal, YVal):
     x = random.randint(0, XVal)
     y = random.randint(0, YVal)
-    UserResponse = input("\n\n\n\n\n\n\n\n\n\n\n\n{} + {} = ? ".format(x, y))
+    MathAnswer = (x+y)
+    UserResponse = input("\n{} + {} = ? ".format(x, y))
     if UserResponse == "q":
         Addition()
     else:
-        print("Answer = {}".format(x+y))
+        if UserResponse == str(MathAnswer):
+            print("Great Job! You got the correct answer: {}".format(MathAnswer))
+        else:
+            print("Better Luck Next Time. The correct answer is: {}".format(MathAnswer))
     UserResponse = input("")
     if UserResponse == "q":
         Addition()
@@ -187,11 +222,15 @@ def AdditionFlash(XVal, YVal):
 def AdditionFocused(XVal, YVal):
     x = XVal
     y = random.randint(0, YVal)
-    UserResponse = input("\n\n\n\n\n\n\n\n\n\n\n\n{} + {} = ? ".format(x, y))
+    MathAnswer = (x+y)
+    UserResponse = input("\n{} + {} = ? ".format(x, y))
     if UserResponse == "q":
         Addition()
     else:
-        print("Answer = {}".format(x+y))
+        if UserResponse == str(MathAnswer):
+            print("Great Job! You got the correct answer: {}".format(MathAnswer))
+        else:
+            print("Better Luck Next Time. The correct answer is: {}".format(MathAnswer))
     UserResponse = input("")
     if UserResponse == "q":
         Addition()
@@ -200,14 +239,70 @@ def AdditionFocused(XVal, YVal):
     return 0
 
 
+def DivisionFlash(XVal, YVal):
+    x = random.randint(1, XVal)
+    y = random.randint(1, YVal)
+    MathAnswer = int(x/y)
+    AnswerWhole = (x%y)
+    if MathAnswer <1:
+        DivisionFlash(XVal, YVal)
+    if AnswerWhole != 0:
+        DivisionFlash(XVal, YVal)
+
+    UserResponse = input("\n{} / {} = ? ".format(x, y))
+    if UserResponse == "q":
+        Division()
+    else:
+        if UserResponse == str(MathAnswer):
+            print("Great Job! You got the correct answer: {}".format(MathAnswer))
+        else:
+            print("Better Luck Next Time. The correct answer is: {}".format(MathAnswer))
+    UserResponse = input("")
+    if UserResponse == "q":
+        Division()
+    else:
+        DivisionFlash(XVal, YVal)
+
+    return 0
+
+
+
+def DivisionFocused(XVal, YVal):
+    x = XVal
+    y = random.randint(1, YVal)
+    MathAnswer = int(y/x)
+    AnswerWhole = (y%x)
+    if MathAnswer <1:
+        DivisionFocused(XVal, YVal)
+    if AnswerWhole != 0:
+        DivisionFocused(XVal, YVal)
+    UserResponse = input("\n{} / {} = ? ".format(y, x))
+    if UserResponse == "q":
+        Division()
+    else:
+        if UserResponse == str(MathAnswer):
+            print("Great Job! You got the correct answer: {}".format(MathAnswer))
+        else:
+            print("Better Luck Next Time. The correct answer is: {}".format(MathAnswer))
+    UserResponse = input("")
+    if UserResponse == "q":
+        Division()
+    else:
+        DivisionFocused(XVal, YVal)
+    return 0
+
 def MultiplicationFlash(XVal, YVal):
     x = random.randint(0, XVal)
     y = random.randint(0, YVal)
+    MathAnswer = (x*y)
     UserResponse = input("\n\n\n\n\n\n\n\n\n\n\n\n{} * {} = ? ".format(x, y))
     if UserResponse == "q":
         Multiplication()
     else:
-        print("Answer = {}".format(x*y))
+        if UserResponse == str(MathAnswer):
+            print("Great Job! You got the correct answer: {}".format(MathAnswer))
+        else:
+            print("Better Luck Next Time. The correct answer is: {}".format(MathAnswer))
     UserResponse = input("")
     if UserResponse == "q":
         Multiplication()
@@ -219,11 +314,15 @@ def MultiplicationFlash(XVal, YVal):
 def MultiplicationFocused(XVal, YVal):
     x = XVal
     y = random.randint(0, YVal)
+    MathAnswer = (x*y)
     UserResponse = input("\n\n\n\n\n\n\n\n\n\n\n\n{} * {} = ? ".format(x, y))
     if UserResponse == "q":
         Multiplication()
     else:
-        print("Answer = {}".format(x*y))
+        if UserResponse == str(MathAnswer):
+            print("Great Job! You got the correct answer: {}".format(MathAnswer))
+        else:
+            print("Better Luck Next Time. The correct answer is: {}".format(MathAnswer))
     UserResponse = input("")
     if UserResponse == "q":
         Multiplication()
@@ -235,15 +334,18 @@ def MultiplicationFocused(XVal, YVal):
 def SubtractionFlash(XVal, YVal):
     x = random.randint(0, XVal)
     y = random.randint(0, YVal)
-
-    if (x-y <0):
+    MathAnswer = (x-y)
+    if (MathAnswer <0):
         SubtractionFlash(XVal, YVal)
 
     UserResponse = input("\n{} - {} = ? ".format(x, y))
     if UserResponse == "q":
         Subtraction()
     else:
-        print("Answer = {}".format(x-y))
+        if UserResponse == str(MathAnswer):
+            print("Great Job! You got the correct answer: {}".format(MathAnswer))
+        else:
+            print("Better Luck Next Time. The correct answer is: {}".format(MathAnswer))
     UserResponse = input("")
     if UserResponse == "q":
         Subtraction()
@@ -254,13 +356,17 @@ def SubtractionFlash(XVal, YVal):
 def SubtractionFocused(XVal, YVal):
     x = XVal
     y = random.randint(0, YVal)
-    if (y-x <0):
+    MathAnswer = (y-x)
+    if (MathAnswer <0):
         SubtractionFocused(XVal, YVal)
     UserResponse = input("\n{} - {} = ? ".format(y, x))
     if UserResponse == "q":
         Subtraction()
     else:
-        print("Answer = {}".format(x-y))
+        if UserResponse == str(MathAnswer):
+            print("Great Job! You got the correct answer: {}".format(MathAnswer))
+        else:
+            print("Better Luck Next Time. The correct answer is: {}".format(MathAnswer))
     UserResponse = input("")
     if UserResponse == "q":
         Subtraction()
