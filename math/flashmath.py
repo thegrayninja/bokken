@@ -16,9 +16,9 @@ def Menu():
     Choose your Category:
 
         1. Addition
-        2. Division
+        2. Subtraction
         3. Multiplication
-        4. Subtraction
+        4. Division
 
 
     To quit, enter "q" anytime during the program.
@@ -31,11 +31,11 @@ def Menu():
     if UserResponse == "1":
         Addition()
     elif UserResponse == "2":
-        Division()
+        Subtraction()
     elif UserResponse == "3":
         Multiplication()
     elif UserResponse == "4":
-        Subtraction()
+        Division()
     elif UserResponse.lower() == "q":
         Quit()
     else:
